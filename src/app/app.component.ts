@@ -10,13 +10,14 @@ import { HomePage } from '../pages/home/home';
 export class MyApp {
   rootPage:any = HomePage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
-    platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
-    });
+  constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+    this.initApp();
+  }
+
+  async initApp() {
+    await this.platform.ready();
+    this.statusBar.styleDefault();
+    this.splashScreen.hide();
   }
 }
 

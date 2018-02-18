@@ -21,6 +21,9 @@ export class  HomePage {
 
   // FIXME: There is no need to bind this function to a button in Android. Need to check if is relevant do it in ios
   async bindNfcListenter() {
+    if (!this.nfc.enabled()) {
+      alert('Please, active NFC in your device.');
+    }
     // TODO: check with ios device if this make nfc work in ios
     if (this.platform.is('ios')) {
       let bSession;
@@ -48,6 +51,17 @@ export class  HomePage {
       // let message = this.ndef.textRecord('Hello world');
       // this.nfc.share([message]).then(onSuccess).catch(onError);
     });
+  }
+
+  // FIXME: not writting properly
+  async writeText() {
+    let result;
+    try {
+      result = await this.nfc.write([this.ndef.textRecord('Writing success!', "English", "UTF8")]);
+      
+    } catch (err) {
+      console.log("Error writing: ", err);
+    }
   }
 
   stopReading(){
